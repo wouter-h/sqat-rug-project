@@ -61,8 +61,6 @@ int countMethodsInFile(Declaration decls) {
   int methods = 0;
   for(decl <- decls){
   	visit(decl){
-  		//case \if(Expression condition, Statement thenBranch) : sum += countNumberOfConditions(condition);
-  		//case \if(Expression condition, Statement thenBranch, Statement elseBranch): sum += countNumberOfConditions(condition);
 		case \method(Type \return, str name, list[Declaration] parameters, list[Expression] exceptions, Statement impl): methods += 1;
   		case \constructor(str name, list[Declaration] parameters, list[Expression] exceptions, Statement impl) : methods += 1;
   	};
@@ -78,7 +76,6 @@ public int countMethodsInProject(list[loc] locations, str pattern){
 		<a, lst> = takeOneFrom(lst);
 		for (str entry <- listEntries(a)){
 			if (endsWith(entry, pattern)){
-				//println(a+entry);
 				loc temp = a+entry;
 				totalMethods += countMethodsInFile(createAstFromFile(temp, true));
 			}
@@ -94,12 +91,9 @@ public void solve1(){
 	Relation declsProgram = programJpacmanM3().declarations;
 	declarations = dup([decl |decl <- declsProgram.first, isMethod(decl)]);
 	
-	//list[loc] notCalled = declarations - invocations;
-	
 	Relation testDecls = testJpacmanM3().declarations;
 	
 	testMethods = [decl.first | decl <- testDecls, isMethod(decl.first)];
-	//testMethodsAggressive = [decl.first | decl <- annos, contains(decl.second.path, "Test") || contains(decl.second.path, "Before") || contains(decl.first.path, "Test") || contains(decl.first.path, "test")];
 	
 	Relation allInvocations = wholeJpacmanM3().methodInvocation;
 	testMethodInvocations = [decl.second |decl <- allInvocations, decl.first in testMethods , isMethod(decl.second)];
@@ -124,3 +118,4 @@ M3 wholeJpacmanM3() = createM3FromEclipseProject(|project://jpacman-framework/sr
 alias Relation = rel[Node first, Node second];
 
 alias Node = loc;
+
