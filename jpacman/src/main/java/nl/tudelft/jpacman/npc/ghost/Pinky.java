@@ -8,6 +8,7 @@ import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.board.Unit;
 import nl.tudelft.jpacman.level.Player;
 import nl.tudelft.jpacman.sprite.Sprite;
+import nl.tudelft.jpacman.ui.Action;
 
 /**
  * <p>
@@ -46,7 +47,7 @@ import nl.tudelft.jpacman.sprite.Sprite;
  * @author Jeroen Roosen 
  * 
  */
-public class Pinky extends Ghost {
+public class Pinky extends Ghost implements Action {
 
 	private static final int SQUARES_AHEAD = 4;
 
@@ -105,4 +106,6 @@ public class Pinky extends Ghost {
 		}
 		return randomMove();
 	}
+	
+	public void doAction() {}
 }

@@ -1,0 +1,3 @@
+nl.tudelft.jpacman.npc.ghost.Inky must inherit nl.tudelft.jpacman.npc.NPC
+nl.tudelft.jpacman.npc.ghost cannot inherit nl.tudelft.jpacman.level.Player
+nl.tudelft.jpacman.npc.ghost cannot depend nl.tudelft.jpacman.ui

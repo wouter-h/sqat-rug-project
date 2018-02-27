@@ -29,11 +29,16 @@ coverage information through the insert calls to your little API.
 
 Questions
 - use a third-party coverage tool (e.g. Clover) to compare your results to (explain differences)
+	>our coverage is 75%.
 	>clover has a coverage of 75%.
+	>So we have exactly the same coverage!
+	
 - which methods have full line coverage?
 	>
 - which methods are not covered at all, and why does it matter (if so)?
-	>["hit","hit","withMapFile","doAction","doAction","doAction","doAction","main","PacmanConfigurationException","PacmanConfigurationException","CollisionInteractionMap","onCollision","onCollision","addHandler","getMostSpecificClass","getInheritance","InverseCollisionHandler","handleCollision","handleCollision","handleCollision","defaultCollisions","Level","removeObserver","createLevel","RandomGhost","makeGrid","addSquare","makeGhostSquare","checkMapFormat","Player","pelletColliding","levelWon","Blinky","Clyde","Ghost","Inky","Navigation","addNewTargets","findNearest","findUnit","Pinky","actionPerformed","ButtonPanel","PacKeyListener","keyPressed","keyTyped","keyReleased","PacManUI","doAction","doAction","addButton","withScoreFormatter","ScorePanel","setScoreFormatter"]
+	>["withMapFile","doAction","main","PacmanConfigurationException","levelWon","actionPerformed","ButtonPanel","PacKeyListener","keyPressed","keyTyped","keyReleased","PacManUI","addButton","withScoreFormatter","ScorePanel","setScoreFormatter","Blinky","Clyde","Ghost","Inky","Navigation","addNewTargets","findNearest","findUnit","Pinky","CollisionInteractionMap","onCollision","addHandler","getMostSpecificClass","getInheritance","InverseCollisionHandler","handleCollision","defaultCollisions","Level","removeObserver","createLevel","RandomGhost","makeGrid","addSquare","makeGhostSquare","checkMapFormat","Player","pelletColliding"]
+	>Methods that are not covered are mostly UI methods, constructors. UI is more java dependent, you are normally not going to check if a java library method is correct, you kind of assume they are.
+	>Constructors is mostly testing getters and setters because a constructor often initializes itself.
 - what are the drawbacks of source-based instrumentation?
 	>Is slower because you have to run it and can create giant files, if there are certificates than you might not be allowed to dynamically test it.
 Tips:
@@ -231,6 +236,8 @@ void findNonCoverage(){
 	nonCovMethods = dup([m | m <- methodsInProject, m notin methodsCovered]);
 	
 	println(nonCovMethods);
+	result = 1.0 - (size(nonCovMethods) * 1.0 /size(methodsInProject) * 1.0);
+	println(result);
 }
 
 void insertChecks(loc project){

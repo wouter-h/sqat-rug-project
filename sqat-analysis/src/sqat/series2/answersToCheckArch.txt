@@ -1,0 +1,41 @@
+nl.tudelft.jpacman.npc.ghost.Inky must inherit nl.tudelft.jpacman.npc.NPC
+This rule is could design because Inky is a computer controlled character and a computer controled character is an NPC.
+So Inky should directly or indirectly inherit NPC. This is good design because code is reused and 
+it doesn't make sense to put Inky in the npc package if it does not use/inherit NPC.
+
+nl.tudelft.jpacman.npc.ghost cannot inherit nl.tudelft.jpacman.level.Player
+Player is a class that the player controlls. So if a computer controlled class, 
+a class in the package ghost, inherits or implements anything related to the class Player, then that is bad design
+because the different functions of a program aren't properly seperated.
+
+nl.tudelft.jpacman.npc.ghost cannot depend nl.tudelft.jpacman.ui
+User interface should be seperated from the game logic, and the program's functions should be properly seperated.
+If the package ghost depends in any way on the ui, then this is bad design because ghost isn't part of the ui, nor is the ui part of ghost.
+
+
+
+- how would you test your evaluator of Dicto rules? (sketch a design)
+First of all create a small project that is easy to check by hand.
+Then test the findTransClosureInherit(), ruleCannotInherit(), ruleMustInherit(), ruleCannotDepend() and eval() method.
+Try to do this in such a way that you at least reach every line of code, and also try to test in such a way 
+that it can handle strange inputs, like very big input, very small input, input that is circular (code base has lots of circular calls) or 
+input that has lots of depth in it (e.g. a lot of inheritance (A inherits B, B inherits C, C inherits D etc.) or function calls (a invokes b, b invokes c, c invokes d etc.)).
+
+
+
+
+- come up with 3 rule types that are not currently supported by this version
+  of Dicto (and explain why you'd need them). 
+1. A rule to check for unused code. Either you are going to map every class/method to every class/method manually, 
+which is way too time consuming or you have a rule which checks this for you.
+This is important because you don't want unused code in your project, this implies that a part of a project is not 
+being used, and is thus inefficient, and can safely be removed (because it is unused).
+
+2. Rules which allow the user to select a group of packages or classes to compare with another group of packages, classes.
+This because if a project becomes big, this currently is a lot of work and error prone.
+Take for example a project with 200 packages. And you want to exclude 30 of those packages to not appear in 30 others, then you already have to write 900 rules.
+
+3. A rule to check for annotations. 
+You'd need this because you don't want to have wrong annotations above methods or you want to be able to filter 
+on certain annotations.
+Take for example test methods scattered around your "source" code, thus you need to be able to scan for test methods in your source code.
